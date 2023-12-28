@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-ecs-api/api/common"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -16,9 +17,9 @@ type payment struct {
 
 func main() {
 	router := gin.Default()
-	router.GET("/payment/:id", getPayment)
-	router.POST("/payment", createPayment)
-	router.PUT("/payment/:id", updatePayment)
-	router.PUT("/payment/:id/cancel", cancelPayment)
+	router.GET("/payment/:id", common.GetPayment)
+	// router.POST("/payment", createPayment)
+	// router.PUT("/payment/:id", updatePayment)
+	// router.PUT("/payment/:id/cancel", cancelPayment)
 	router.Run("localhost:3000")
 }
