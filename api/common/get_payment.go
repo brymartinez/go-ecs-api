@@ -1,6 +1,8 @@
 package common
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,6 +11,7 @@ func GetPayment(c *gin.Context) {
 
 	_, err := ConnectToDB()
 	if err != nil {
+		fmt.Printf("Error conecting to db, %d", err)
 		InternalServerError(c)
 		return
 	}

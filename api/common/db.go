@@ -2,23 +2,26 @@ package common
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	pg "github.com/go-pg/pg/v10"
 )
 
-var storage *pg.DB
+var sto *pg.DB
 
 func ConnectToDB() (*pg.DB, error) {
-	if storage != nil {
-		return storage, nil
+
+	if sto != nil {
+		return sto, nil
 	}
-	fmt.Println("Creating new db connection...")
+
 	opt, err := pg.ParseURL(os.Getenv("DB_CONNSTRING"))
 	if err != nil {
 		return nil, err
 	}
+
+	// required for testing
+	opt.TLSConfig = nil
 
 	db := pg.Connect(opt)
 
@@ -28,7 +31,7 @@ func ConnectToDB() (*pg.DB, error) {
 		return nil, err
 	}
 
-	storage = db
+	sto = db
 
-	return db, nil
+	return sto, nil
 }

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 type payment struct {
@@ -16,6 +17,10 @@ type payment struct {
 }
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic(err.Error())
+	}
 	router := gin.Default()
 	router.GET("/payment/:id", common.GetPayment)
 	// router.POST("/payment", createPayment)
