@@ -9,3 +9,7 @@ type Payment struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+type CreatePaymentDTO struct {
+	Amount float64 `json:"amount"`
+}
