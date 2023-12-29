@@ -3,13 +3,11 @@ package handlers
 import (
 	"fmt"
 	"go-ecs-api/api/common"
-	model "go-ecs-api/api/models"
 
 	"github.com/gin-gonic/gin"
 )
 
-func GetPayment(c *gin.Context) {
-	id := c.Param("id")
+func CreatePayment(c *gin.Context) {
 
 	db, err := common.ConnectToDB()
 	if err != nil {
@@ -18,8 +16,11 @@ func GetPayment(c *gin.Context) {
 		return
 	}
 
-	var payment model.Payment
-	db.Model(&model.Payment{}).Where("id = ?", id).Select(&payment)
+	_, err := db.Model(payment).Insert(payment)
+	if err != nil {
+		common.InternalServerError(c)
+		return
+	}
 
 	c.IndentedJSON(200, payment)
 }
