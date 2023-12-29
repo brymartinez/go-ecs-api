@@ -22,7 +22,7 @@ func CancelPayment(c *gin.Context) {
 	var payment model.Payment
 	status := "CANCELLED"
 
-	result, err := db.Model(&model.Payment{}).Set("status = ?", status).Where("id = ?", id).Returning("*").Update(&payment)
+	_, err = db.Model(&model.Payment{}).Set("status = ?", status).Where("id = ?", id).Returning("*").Update(&payment)
 	if err != nil {
 		fmt.Printf("Error cancelling payment, %d", err)
 		if err.Error() == pg.ErrNoRows.Error() {
@@ -32,8 +32,6 @@ func CancelPayment(c *gin.Context) {
 		}
 		return
 	}
-
-	fmt.Printf("%d", result)
 
 	c.IndentedJSON(200, payment)
 }

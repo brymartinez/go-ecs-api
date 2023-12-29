@@ -8,14 +8,21 @@ import (
 
 func InternalServerError(c *gin.Context) {
 	c.IndentedJSON(http.StatusInternalServerError, gin.H{
-		"error":   9999,
+		"code":    9999,
 		"message": "Internal Server Error",
 	})
 }
 
 func NotFoundError(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{
-		"error":   1000,
+		"code":    1000,
 		"message": "Not found",
+	})
+}
+
+func InvalidStatusError(c *gin.Context) {
+	c.IndentedJSON(http.StatusBadRequest, gin.H{
+		"code":    1001,
+		"message": "Invalid status",
 	})
 }
