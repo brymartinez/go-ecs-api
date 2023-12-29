@@ -6,6 +6,7 @@ import (
 	"go-ecs-api/api/model"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-pg/pg/v10"
 )
 
 func GetPayment(c *gin.Context) {
@@ -22,7 +23,7 @@ func GetPayment(c *gin.Context) {
 	err = db.Model(&model.Payment{}).Where("id = ?", id).Select(&payment)
 	if err != nil {
 		fmt.Printf("Error getting payment, %d", err)
-		if err.Error() == "pg: no rows in result set" {
+		if err.Error() == pg.ErrNoRows.Error() {
 			common.NotFoundError(c)
 		} else {
 			common.InternalServerError(c)
