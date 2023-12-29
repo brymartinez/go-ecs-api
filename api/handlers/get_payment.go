@@ -1,7 +1,8 @@
-package common
+package handlers
 
 import (
 	"fmt"
+	"go-ecs-api/api/common"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,10 +10,10 @@ import (
 func GetPayment(c *gin.Context) {
 	id := c.Param("id")
 
-	_, err := ConnectToDB()
+	_, err := common.ConnectToDB()
 	if err != nil {
 		fmt.Printf("Error conecting to db, %d", err)
-		InternalServerError(c)
+		common.InternalServerError(c)
 		return
 	}
 
