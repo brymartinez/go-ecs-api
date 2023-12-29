@@ -5,6 +5,7 @@ import (
 	"go-ecs-api/api/common"
 	"go-ecs-api/api/model"
 	"slices"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	pg "github.com/go-pg/pg/v10"
@@ -39,7 +40,7 @@ func UpdatePayment(c *gin.Context) {
 		return
 	}
 
-	db.Model(&payment).Set("status = ?", "COMPLETED").Returning("*").Where("id = ?", id).Update(&payment)
+	db.Model(&payment).Set("status = ?", "COMPLETED").Set("updated_at = ?", time.Now()).Returning("*").Where("id = ?", id).Update(&payment)
 	if err != nil {
 		fmt.Printf("Error cancelling payment, %d", err)
 		if err.Error() == pg.ErrNoRows.Error() {
