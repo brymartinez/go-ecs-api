@@ -15,7 +15,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/payment/:id", handlers.GetPayment)
 	router.POST("/payment", handlers.CreatePayment)
-	// router.PUT("/payment/:id", updatePayment)
-	// router.PUT("/payment/:id/cancel", cancelPayment)
+	router.PUT("/payment/:id", handlers.UpdatePayment)
+	router.PUT("/payment/:id/cancel", handlers.CancelPayment)
 	router.Run("localhost:3000")
 }
